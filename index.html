@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers' Day — SAGES Nikum Digital Invitation</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Teachers' Day 2026 — SAGES Nikum Invitation">
+    <meta name="description" content="A secret Teachers' Day digital invitation created with gratitude for our amazing teachers at SAGES Nikum — 5 September 2026.">
+    <meta name="theme-color" content="#05060b">
+
+    <!-- Open Graph / WhatsApp / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Happy Teachers' Day 2026 — SAGES Nikum">
+    <meta property="og:description" content="Dear Teachers, a secret surprise has been prepared for you! Tap to unlock your Teachers' Day invitation. ❤️">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200&auto=format&fit=crop">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Happy Teachers' Day 2026 — SAGES Nikum">
+    <meta name="twitter:description" content="Dear Teachers, a secret surprise has been prepared for you! Tap to unlock your Teachers' Day invitation. ❤️">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap');
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            background: #05060b;
+            color: #f8f4ea;
+            font-family: "DM Sans", sans-serif;
+            overflow-x: hidden
+        }
+
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #05060b;
+            z-index: 999;
+            display: grid;
+            place-items: center;
+            transition: opacity 0.8s ease-out;
+        }
+
+        .loader-inner {
+            text-align: center
+        }
+
+        .ring {
+            width: 70px;
+            height: 70px;
+            border: 1px solid #ffffff25;
+            border-top-color: #e9c878;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: auto
+        }
+
+        .loader-inner p {
+            font-size: 10px;
+            letter-spacing: 5px;
+            color: #aaa;
+            margin-top: 20px
+        }
+
+        section {
+            min-height: 100vh;
+            position: relative;
+            display: grid;
+            place-items: center;
+            padding: 70px 20px;
+            overflow: hidden
+        }
+
+        .hero {
+            background: radial-gradient(circle at 50% 42%, #37305e 0, #17182b 35%, #05060b 75%)
+        }
+
+        .stars {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(#fff 1px, transparent 1px);
+            background-size: 105px 105px;
+            opacity: .25;
+            animation: drift 24s linear infinite;
+            pointer-events: none;
+        }
+
+        .grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
+            background-size: 80px 80px;
+            opacity: .06;
+            transform: perspective(500px) rotateX(65deg) scale(2);
+            transform-origin: bottom;
+            pointer-events: none;
+        }
+
+        @keyframes drift {
+            to {
+                transform: translateY(-105px)
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @keyframes shimmer {
+            to {
+                background-position: 200% center
+            }
+        }
+
+        .content {
+            position: relative;
+            z-index: 3;
+            max-width: 950px;
+            text-align: center
+        }
+
+        .eyebrow,
+        .kicker {
+            font-size: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: #e9c878
+        }
+
+        .hero h1 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(72px, 15vw, 165px);
+            line-height: .78;
+            margin: 28px 0;
+            background: linear-gradient(100deg, #fff, #e9c878, #fff);
+            background-size: 200%;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: shimmer 5s linear infinite
+        }
+
+        .hero p,
+        .lead {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #bfc0cc;
+            max-width: 680px;
+            margin: auto
+        }
+
+        .scroll {
+            margin-top: 60px;
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: #aaa;
+        }
+
+        .mouse {
+            width: 22px;
+            height: 36px;
+            border: 1px solid #ffffff66;
+            border-radius: 20px;
+            margin: 14px auto;
+            position: relative
+        }
+
+        .mouse:after {
+            content: "";
+            position: absolute;
+            width: 3px;
+            height: 7px;
+            background: #e9c878;
+            border-radius: 3px;
+            left: 9px;
+            top: 7px;
+            animation: mouse 1.5s infinite
+        }
+
+        @keyframes mouse {
+            to {
+                transform: translateY(12px);
+                opacity: 0
+            }
+        }
+
+        .wrap {
+            width: min(1000px, 100%);
+            position: relative;
+            z-index: 3
+        }
+
+        .glass {
+            padding: 48px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ffffff0e, #ffffff03);
+            border: 1px solid #ffffff18;
+            box-shadow: 0 35px 100px #0009, inset 0 1px #ffffff12;
+            backdrop-filter: blur(18px)
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px) scale(.97);
+            transition: 1.1s cubic-bezier(.2, .7, .2, 1)
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: none
+        }
+
+        h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(45px, 8vw, 90px);
+            line-height: .95;
+            margin: 15px 0 22px
+        }
+
+        .quote {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(34px, 6vw, 65px);
+            line-height: 1.05;
+            color: #e9c878;
+            margin: 30px 0
+        }
+
+        .funny {
+            background: radial-gradient(circle at 75% 35%, #3c294b, #080912 65%)
+        }
+
+        .stamp {
+            display: inline-block;
+            background: #eee;
+            color: #111;
+            padding: 8px 14px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transform: rotate(-2deg)
+        }
+
+        .joke {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(42px, 8vw, 90px);
+            line-height: .9;
+            margin: 28px 0
+        }
+
+        .joke span {
+            color: #e9c878
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 35px
+        }
+
+        .detail {
+            padding: 25px;
+            border: 1px solid #ffffff16;
+            border-radius: 22px;
+            background: #ffffff06;
+            transition: .4s;
+            text-align: center;
+        }
+
+        .detail:hover {
+            transform: translateY(-9px);
+            background: #ffffff0b
+        }
+
+        .detail small {
+            display: block;
+            color: #888;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 9px;
+            margin-bottom: 10px
+        }
+
+        .detail b {
+            font-size: 18px
+        }
+
+        .giftsec {
+            background: linear-gradient(180deg, #06070c, #151226, #06070c)
+        }
+
+        .gifts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 35px
+        }
+
+        .gift {
+            height: 240px;
+            border: 1px solid #ffffff1a;
+            border-radius: 28px;
+            background: #ffffff08;
+            color: white;
+            cursor: pointer;
+            transition: .5s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 70px #0008;
+            outline: none;
+        }
+
+        .gift:focus-visible {
+            outline: 2px solid #e9c878;
+            outline-offset: 4px;
+        }
+
+        .gift:hover {
+            transform: translateY(-15px) rotate(-2deg);
+            border-color: #e9c87888
+        }
+
+        .gift:before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: #e9c87820;
+            filter: blur(35px);
+            border-radius: 50%;
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%)
+        }
+
+        .gift-icon {
+            font-size: 72px;
+            position: relative;
+            margin-top: 35px;
+            animation: float 3s ease-in-out infinite
+        }
+
+        .gift:nth-child(2) .gift-icon {
+            animation-delay: .5s
+        }
+
+        .gift:nth-child(3) .gift-icon {
+            animation-delay: 1s
+        }
+
+        @keyframes float {
+            50% {
+                transform: translateY(-12px) rotate(4deg)
+            }
+        }
+
+        .gift span {
+            display: block;
+            position: relative;
+            margin-top: 20px;
+            color: #aaa;
+            letter-spacing: 3px;
+            font-size: 10px;
+            text-transform: uppercase
+        }
+
+        .final {
+            background: radial-gradient(circle at 50% 40%, #49385e, #090a10 67%)
+        }
+
+        .final h2 {
+            font-size: clamp(65px, 13vw, 135px)
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 35px;
+        }
+
+        .cta {
+            border: 0;
+            border-radius: 999px;
+            padding: 16px 32px;
+            background: #e9c878;
+            color: #111;
+            font-weight: 800;
+            font-size: 15px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 0 50px #e9c87830;
+            transition: .3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 70px #e9c87855
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.16);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .signature {
+            margin-top: 35px;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            background: #04050a;
+            color: #888999;
+            font-size: 10px;
+            letter-spacing: 2px
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: #000d;
+            z-index: 900;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .4s ease, visibility .4s ease;
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible
+        }
+
+        .modalbox {
+            width: min(580px, 100%);
+            padding: 45px;
+            text-align: center;
+            border-radius: 30px;
+            background: #151724;
+            border: 1px solid #ffffff22;
+            box-shadow: 0 40px 110px #000
+        }
+
+        .modalbox .big {
+            font-size: 70px
+        }
+
+        .modalbox h3 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 42px;
+            margin: 12px 0
+        }
+
+        .modalbox p {
+            color: #c8c9d5;
+            line-height: 1.7
+        }
+
+        .close {
+            margin-top: 22px;
+            padding: 12px 28px;
+            border: 0;
+            border-radius: 999px;
+            background: #e9c878;
+            color: #111;
+            cursor: pointer;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .close:hover {
+            transform: scale(1.05);
+        }
+
+        .conf {
+            position: fixed;
+            top: -20px;
+            z-index: 1000;
+            pointer-events: none;
+            animation: fall 4.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(115vh) rotate(960deg);
+                opacity: 0;
+            }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #e9c878;
+            color: #111;
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 9999;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @media(max-width:700px) {
+            .glass {
+                padding: 28px
+            }
+
+            .gifts,
+            .details {
+                grid-template-columns: 1fr
+            }
+
+            .hero h1 {
+                font-size: 76px
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader" aria-label="Loading Invitation">
+        <div class="loader-inner">
+            <div class="ring"></div>
+            <p>PREPARING YOUR INVITATION</p>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="stars" aria-hidden="true"></div>
+        <div class="grid" aria-hidden="true"></div>
+        <div class="content">
+            <div class="eyebrow">A secret invitation • SAGES Nikum</div>
+            <h1>Teachers'<br>Day</h1>
+            <p>Dear Teachers, a little surprise has been prepared for you.<br>Don't stop scrolling until you discover the secret.</p>
+            <div class="scroll">SCROLL TO UNLOCK<div class="mouse"></div></div>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrap glass reveal">
+            <div class="kicker">01 / The secret</div>
+            <h2>We have been planning something.</h2>
+            <p class="lead">For a few days, your students have been unusually quiet. Suspiciously quiet. There were secret conversations, hidden plans and a little bit of classroom chaos.</p>
+            <div class="quote">“Because one day is not enough to say thank you.”</div>
+            <p class="lead">So, this time, we're not giving you homework. We're giving you an invitation. ❤️</p>
+        </div>
+    </section>
+
+    <section class="funny">
+        <div class="content reveal">
+            <div class="stamp">OFFICIAL CLASSROOM NOTICE</div>
+            <div class="joke">HOMEWORK:<br><span>CANCELLED.</span></div>
+            <p class="lead">Reason: Your students have planned a celebration. Attendance of our amazing teachers is therefore extremely important. 😄</p>
+        </div>
+    </section>
+
+    <section class="giftsec">
+        <div class="wrap reveal">
+            <div class="kicker">02 / Classified gifts</div>
+            <h2>Choose your mystery.</h2>
+            <p class="lead">Tap any gift. Something from your students is hiding inside.</p>
+            <div class="gifts">
+                <button class="gift" onclick="openGift(0)" aria-label="Open Mystery Gift One">
+                    <div class="gift-icon">🎁</div><span>Mystery One</span>
+                </button>
+                <button class="gift" onclick="openGift(1)" aria-label="Open Mystery Gift Two">
+                    <div class="gift-icon">🎁</div><span>Mystery Two</span>
+                </button>
+                <button class="gift" onclick="openGift(2)" aria-label="Open Mystery Gift Three">
+                    <div class="gift-icon">🎁</div><span>Mystery Three</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrap reveal">
+            <div class="kicker">03 / The reveal</div>
+            <h2>Save the date.</h2>
+            <p class="lead">The mystery leads to one special day, created especially for the people who make our classroom a better place.</p>
+            <div class="details">
+                <div class="detail"><small>Occasion</small><b>Teachers' Day Celebration</b></div>
+                <div class="detail"><small>Date</small><b>5 September 2026</b></div>
+                <div class="detail"><small>Venue</small><b>SAGES Nikum</b></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final">
+        <div class="content reveal">
+            <div class="kicker">04 / Final message</div>
+            <h2>You're<br>Invited.</h2>
+            <p class="lead">Dear Teachers,<br>Thank you for teaching us, guiding us, correcting us and believing in us—even when our classroom sometimes becomes its own little universe. 😄</p>
+            <p class="lead" style="margin-top:20px">Please join us on <b style="color:#e9c878">5 September at SAGES Nikum</b> and make this Teachers' Day unforgettable.</p>
+            
+            <div class="action-buttons">
+                <button class="cta" onclick="celebrate()" aria-label="Trigger celebration confetti">LET'S CELEBRATE ✦</button>
+                <button class="cta cta-secondary" onclick="addToCalendar()" aria-label="Add event to Google Calendar">📅 Add to Calendar</button>
+                <button class="cta cta-secondary" onclick="shareInvitation()" aria-label="Copy invitation link">🔗 Share Invitation</button>
+            </div>
+
+            <div class="signature">With respect, gratitude & a little classroom chaos — Your Students ❤️</div>
+        </div>
+    </section>
+    <footer>SAGES NIKUM • TEACHERS' DAY 2026</footer>
+
+    <!-- Modal -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="title" onclick="if(event.target===this)closeModal()">
+        <div class="modalbox">
+            <div class="big">🎁</div>
+            <h3 id="title"></h3>
+            <p id="text"></p>
+            <button class="close" onclick="closeModal()">Close ✦</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Link copied to clipboard! ✨</div>
+
+    <script>
+        // Smooth Loader Fade & Cleanup
+        const loader = document.getElementById('loader');
+        const modal = document.getElementById('modal');
+
+        function hideLoader() {
+            if (!loader) return;
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                if (loader.parentNode) loader.remove();
+            }, 800);
+        }
+
+        if (document.readyState === 'complete') {
+            setTimeout(hideLoader, 400);
+        } else {
+            window.addEventListener('load', () => setTimeout(hideLoader, 400));
+            setTimeout(hideLoader, 3000); // Safety fallback
+        }
+
+        // Mystery Gift Messages
+        const messages = [
+            ["A small truth", "You taught us lessons that will stay with us far beyond the classroom. Thank you for being patient with us, every single day. ❤️"],
+            ["Achievement unlocked", "You survived hundreds of “Sir/Ma'am, ye exam mein aayega?” questions. That deserves a standing ovation. 😂"],
+            ["The real gift", "We may forget some answers, but we will remember the way you made us believe that we could learn. Happy Teachers' Day! 🌟"]
+        ];
+
+        function playChime() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const now = ctx.currentTime;
+                [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + i * 0.08);
+                    gain.gain.setValueAtTime(0.15, now + i * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.6);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + i * 0.08);
+                    osc.stop(now + i * 0.08 + 0.6);
+                });
+            } catch(e) {}
+        }
+
+        function openGift(i) {
+            document.getElementById('title').textContent = messages[i][0];
+            document.getElementById('text').textContent = messages[i][1];
+            modal.classList.add('open');
+            playChime();
+        }
+
+        function closeModal() {
+            modal.classList.remove('open');
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('open')) {
+                closeModal();
+            }
+        });
+
+        // Intersection Observer for Smooth Reveal Animations
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('show');
+            });
+        }, { threshold: .15 });
+
+        document.querySelectorAll('.reveal').forEach(x => observer.observe(x));
+
+        // Celebratory Confetti System
+        function celebrate() {
+            playChime();
+            const colors = ['#e9c878', '#ffffff', '#d8b7ff', '#9bd7ff', '#ff9ebb'];
+            for (let i = 0; i < 140; i++) {
+                let c = document.createElement('i');
+                c.className = 'conf';
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.width = (Math.random() * 8 + 6) + 'px';
+                c.style.height = (Math.random() * 12 + 8) + 'px';
+                c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                c.style.background = colors[Math.floor(Math.random() * colors.length)];
+                c.style.animationDelay = Math.random() * 1.5 + 's';
+                c.style.animationDuration = (Math.random() * 2 + 3.5) + 's';
+                document.body.appendChild(c);
+                setTimeout(() => c.remove(), 6000);
+            }
+        }
+
+        // Add to Google Calendar
+        function addToCalendar() {
+            const title = encodeURIComponent("Teachers' Day Celebration at SAGES Nikum");
+            const details = encodeURIComponent("You're invited to the Teachers' Day Celebration planned with love by your students!");
+            const location = encodeURIComponent("SAGES Nikum");
+            // 5 Sept 2026 09:00 IST to 13:00 IST (03:30 UTC to 07:30 UTC)
+            const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20260905T033000Z/20260905T073000Z&details=${details}&location=${location}`;
+            window.open(calUrl, '_blank');
+        }
+
+        // Share Link / Toast Notification
+        function shareInvitation() {
+            if (navigator.share) {
+                navigator.share({
+                    title: "Happy Teachers' Day 2026 — SAGES Nikum",
+                    text: "Dear Teachers, you are invited to a special Teachers' Day celebration! ❤️",
+                    url: window.location.href
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 3000);
+            }
+        }
+    </script>
+</body>
+
+</html>
