@@ -75,43 +75,96 @@
             margin-top: 20px
         }
 
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(110px);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.4;
+            animation: floatGlow 20s ease-in-out infinite alternate;
+        }
+
+        .glow-1 {
+            width: 520px;
+            height: 520px;
+            background: radial-gradient(circle, #5b3788 0%, transparent 70%);
+            top: 5%;
+            left: 10%;
+            animation-duration: 22s;
+        }
+
+        .glow-2 {
+            width: 620px;
+            height: 620px;
+            background: radial-gradient(circle, #1c2b5e 0%, transparent 70%);
+            top: 50%;
+            right: 5%;
+            animation-duration: 28s;
+            animation-delay: -6s;
+        }
+
+        .glow-3 {
+            width: 480px;
+            height: 480px;
+            background: radial-gradient(circle, #7a5418 0%, transparent 70%);
+            bottom: 5%;
+            left: 25%;
+            animation-duration: 24s;
+            animation-delay: -12s;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(45px, -35px) scale(1.15); }
+            100% { transform: translate(-35px, 45px) scale(0.9); }
+        }
+
         section {
             min-height: 100vh;
             position: relative;
             display: grid;
             place-items: center;
             padding: 70px 20px;
-            overflow: hidden
+            overflow: hidden;
+            z-index: 2;
         }
 
         .hero {
-            background: radial-gradient(circle at 50% 42%, #37305e 0, #17182b 35%, #05060b 75%)
-        }
-
-        .stars {
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(#fff 1px, transparent 1px);
-            background-size: 105px 105px;
-            opacity: .25;
-            animation: drift 24s linear infinite;
-            pointer-events: none;
+            background: radial-gradient(circle at 50% 40%, rgba(55, 48, 94, 0.45) 0%, rgba(23, 24, 43, 0.25) 45%, transparent 80%);
         }
 
         .grid {
             position: absolute;
             inset: 0;
-            background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
-            background-size: 80px 80px;
-            opacity: .06;
-            transform: perspective(500px) rotateX(65deg) scale(2);
+            background-image: 
+                linear-gradient(rgba(233, 200, 120, 0.12) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 65px 65px;
+            opacity: 0.35;
+            transform: perspective(500px) rotateX(68deg) scale(2.2);
             transform-origin: bottom;
             pointer-events: none;
+            animation: gridDrive 16s linear infinite;
+            mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95) 20%, transparent 90%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95) 20%, transparent 90%);
         }
 
-        @keyframes drift {
-            to {
-                transform: translateY(-105px)
+        @keyframes gridDrive {
+            0% {
+                background-position: 0 0, 0 0;
+            }
+            100% {
+                background-position: 0 65px, 0 0;
             }
         }
 
@@ -249,7 +302,7 @@
         }
 
         .funny {
-            background: radial-gradient(circle at 75% 35%, #3c294b, #080912 65%)
+            background: radial-gradient(circle at 75% 35%, rgba(60, 41, 75, 0.45) 0%, rgba(8, 9, 18, 0.2) 65%, transparent 100%);
         }
 
         .stamp {
@@ -309,7 +362,7 @@
         }
 
         .giftsec {
-            background: linear-gradient(180deg, #06070c, #151226, #06070c)
+            background: linear-gradient(180deg, transparent 0%, rgba(21, 18, 38, 0.45) 50%, transparent 100%);
         }
 
         .gifts {
@@ -388,7 +441,7 @@
         }
 
         .final {
-            background: radial-gradient(circle at 50% 40%, #49385e, #090a10 67%)
+            background: radial-gradient(circle at 50% 40%, rgba(73, 56, 94, 0.45) 0%, rgba(9, 10, 16, 0.25) 67%, transparent 100%);
         }
 
         .final h2 {
@@ -569,6 +622,11 @@
 </head>
 
 <body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="ambient-glow glow-1" aria-hidden="true"></div>
+    <div class="ambient-glow glow-2" aria-hidden="true"></div>
+    <div class="ambient-glow glow-3" aria-hidden="true"></div>
+
     <div id="loader" aria-label="Loading Invitation">
         <div class="loader-inner">
             <div class="ring"></div>
@@ -577,7 +635,6 @@
     </div>
 
     <section class="hero">
-        <div class="stars" aria-hidden="true"></div>
         <div class="grid" aria-hidden="true"></div>
         <div class="content">
             <div class="eyebrow">A secret invitation • SAGES NIKUM</div>
@@ -784,6 +841,239 @@
                 setTimeout(() => toast.classList.remove('show'), 3000);
             }
         }
+
+        // ==========================================
+        // DYNAMIC COSMIC BACKGROUND ANIMATION ENGINE
+        // ==========================================
+        (function() {
+            const canvas = document.getElementById('bg-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let width = 0;
+            let height = 0;
+            let dpr = 1;
+            let animationFrameId = null;
+
+            const mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000, active: false };
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.targetX = e.clientX;
+                mouse.targetY = e.clientY;
+                mouse.active = true;
+            });
+            window.addEventListener('mouseleave', () => {
+                mouse.active = false;
+            });
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) {
+                    mouse.targetX = e.touches[0].clientX;
+                    mouse.targetY = e.touches[0].clientY;
+                    mouse.active = true;
+                }
+            }, { passive: true });
+            window.addEventListener('touchend', () => {
+                mouse.active = false;
+            });
+
+            function resize() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+                ctx.scale(dpr, dpr);
+                initStars();
+                initEmbers();
+            }
+
+            const stars = [];
+            function initStars() {
+                stars.length = 0;
+                const starCount = Math.min(Math.floor((width * height) / 11000), 120);
+                for (let i = 0; i < starCount; i++) {
+                    stars.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: Math.random() * 1.6 + 0.4,
+                        baseAlpha: Math.random() * 0.5 + 0.25,
+                        alpha: Math.random() * 0.6 + 0.2,
+                        twinkleSpeed: Math.random() * 0.035 + 0.008,
+                        twinklePhase: Math.random() * Math.PI * 2,
+                        color: Math.random() > 0.4 ? '#ffffff' : (Math.random() > 0.5 ? '#e9c878' : '#d8b7ff'),
+                        hasSparkle: Math.random() > 0.85
+                    });
+                }
+            }
+
+            const embers = [];
+            function initEmbers() {
+                embers.length = 0;
+                const emberCount = Math.min(Math.floor(width / 35), 40);
+                for (let i = 0; i < emberCount; i++) {
+                    embers.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: Math.random() * 2.2 + 0.8,
+                        vy: -(Math.random() * 0.45 + 0.25),
+                        swaySpeed: Math.random() * 0.02 + 0.01,
+                        swayDistance: Math.random() * 1.5 + 0.5,
+                        phase: Math.random() * Math.PI * 2,
+                        alpha: Math.random() * 0.55 + 0.25,
+                        color: Math.random() > 0.35 ? '233, 200, 120' : '255, 230, 180'
+                    });
+                }
+            }
+
+            const meteors = [];
+            let nextMeteorTime = Date.now() + 2000;
+
+            function spawnMeteor() {
+                const startX = Math.random() * (width * 0.8) + width * 0.2;
+                const startY = Math.random() * (height * 0.4);
+                const speed = Math.random() * 7 + 8;
+                const angle = (Math.PI / 4) + (Math.random() * 0.2 - 0.1);
+                meteors.push({
+                    x: startX,
+                    y: startY,
+                    vx: -Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    length: Math.random() * 90 + 70,
+                    alpha: 1,
+                    life: 1,
+                    decay: Math.random() * 0.018 + 0.015
+                });
+                nextMeteorTime = Date.now() + Math.random() * 4500 + 3500;
+            }
+
+            let lastTime = performance.now();
+
+            function animate(now) {
+                lastTime = now;
+                ctx.clearRect(0, 0, width, height);
+
+                if (mouse.active) {
+                    mouse.x += (mouse.targetX - mouse.x) * 0.1;
+                    mouse.y += (mouse.targetY - mouse.y) * 0.1;
+
+                    const glowGrad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 220);
+                    glowGrad.addColorStop(0, 'rgba(233, 200, 120, 0.07)');
+                    glowGrad.addColorStop(0.5, 'rgba(216, 183, 255, 0.03)');
+                    glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                    ctx.fillStyle = glowGrad;
+                    ctx.beginPath();
+                    ctx.arc(mouse.x, mouse.y, 220, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                for (let i = 0; i < stars.length; i++) {
+                    const s = stars[i];
+                    s.twinklePhase += s.twinkleSpeed;
+                    const alpha = s.baseAlpha + Math.sin(s.twinklePhase) * 0.25;
+                    ctx.globalAlpha = Math.max(0.1, Math.min(1, alpha));
+                    ctx.fillStyle = s.color;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    if (s.hasSparkle && alpha > 0.55) {
+                        ctx.strokeStyle = s.color;
+                        ctx.lineWidth = 0.6;
+                        const sparkleSize = s.radius * 3.2;
+                        ctx.beginPath();
+                        ctx.moveTo(s.x - sparkleSize, s.y);
+                        ctx.lineTo(s.x + sparkleSize, s.y);
+                        ctx.moveTo(s.x, s.y - sparkleSize);
+                        ctx.lineTo(s.x, s.y + sparkleSize);
+                        ctx.stroke();
+                    }
+                }
+
+                for (let i = 0; i < embers.length; i++) {
+                    const e = embers[i];
+                    e.y += e.vy;
+                    e.phase += e.swaySpeed;
+                    const sway = Math.sin(e.phase) * e.swayDistance;
+
+                    if (mouse.active) {
+                        const dx = (e.x + sway) - mouse.x;
+                        const dy = e.y - mouse.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120 && dist > 0) {
+                            e.x += (dx / dist) * 1.5;
+                            e.y += (dy / dist) * 1.5;
+                        }
+                    }
+
+                    if (e.y < -20) {
+                        e.y = height + 10;
+                        e.x = Math.random() * width;
+                    }
+
+                    ctx.globalAlpha = e.alpha;
+                    ctx.fillStyle = `rgba(${e.color}, ${e.alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(e.x + sway, e.y, e.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                if (Date.now() > nextMeteorTime) {
+                    spawnMeteor();
+                }
+
+                for (let i = meteors.length - 1; i >= 0; i--) {
+                    const m = meteors[i];
+                    m.x += m.vx;
+                    m.y += m.vy;
+                    m.life -= m.decay;
+
+                    if (m.life <= 0 || m.x < -100 || m.y > height + 100) {
+                        meteors.splice(i, 1);
+                        continue;
+                    }
+
+                    const dist = Math.hypot(m.vx, m.vy);
+                    const tailX = m.x - (m.vx / dist) * m.length;
+                    const tailY = m.y - (m.vy / dist) * m.length;
+
+                    const grad = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
+                    grad.addColorStop(0, 'rgba(233, 200, 120, 0)');
+                    grad.addColorStop(0.7, `rgba(233, 200, 120, ${m.life * 0.6})`);
+                    grad.addColorStop(1, `rgba(255, 255, 255, ${m.life * 0.95})`);
+
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = 1.8;
+                    ctx.lineCap = 'round';
+                    ctx.beginPath();
+                    ctx.moveTo(tailX, tailY);
+                    ctx.lineTo(m.x, m.y);
+                    ctx.stroke();
+
+                    ctx.fillStyle = `rgba(255, 255, 255, ${m.life})`;
+                    ctx.beginPath();
+                    ctx.arc(m.x, m.y, 1.4, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.globalAlpha = 1;
+                animationFrameId = requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', resize);
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                } else {
+                    lastTime = performance.now();
+                    animationFrameId = requestAnimationFrame(animate);
+                }
+            });
+
+            resize();
+            animationFrameId = requestAnimationFrame(animate);
+        })();
     </script>
 </body>
 
